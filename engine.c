@@ -79,7 +79,7 @@ ptrack_write_chunk(int fd, pg_crc32c *crc, char *chunk, size_t size)
 {
 
 #ifdef WIN32	
-	pg_comp_crc32c_handler(crc, (char *) chunk, size);
+	comp_crc32c(crc, (char *) chunk, size);
 #else
 	COMP_CRC32C(*crc, (char *) chunk, size);
 #endif	
@@ -253,7 +253,7 @@ ptrack_map_reinit:
 		/* Check CRC */
 		INIT_CRC32C(crc);
 #ifdef WIN32
-		pg_comp_crc32c_handler(&crc, (char *) ptrack_map, PtrackCrcOffset);
+		comp_crc32c(&crc, (char *) ptrack_map, PtrackCrcOffset);
 #else
 		COMP_CRC32C(crc, (char *) ptrack_map, PtrackCrcOffset);
 #endif		
